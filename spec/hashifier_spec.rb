@@ -25,5 +25,14 @@ describe Hashifier do
       }
     end
 
+    it "should handle similar keys" do
+      h = {"de.active_admin.any"=>"EAlle", "de.active_admin.cancel"=>"AbbrechenX"}
+      Hashifier::StringKeyHashExporter.new.export(h).should ==
+        {
+        "de" => {"active_admin" => {"any" => "EAlle","cancel" => "AbbrechenX"}},
+      }
+
+    end
+
   end
 end

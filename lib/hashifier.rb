@@ -8,28 +8,29 @@ module Hashifier
   # {"de" => {"active_admin" => {"any" => "Some value"}}}
   class StringKeyHashExporter
     def export(hash,separator=".")
-      result = {}
+      results = {}
       keys = hash.keys
       keys.each do |key|
-        last_value = nil
-        subhash = nil
+#        binding.pry
         components = key.split(separator)
+        accessor = nil
         components.each_with_index do |component,idx|
-          if last_value
-            value = (idx == components.size - 1) ? nil : {}
-            last_value[component] ||= value
-            if value
-              last_value = last_value[component]
-            end
+          is_last = idx == components.size - 1
+          if is_last
+            accessor[component] = hash[key]
           else
-            subhash = {component => {}}
-            last_value = subhash[component]
+            if accessor
+              accessor[component] ||= {}
+              accessor = accessor[component]
+            else
+              results = {component => {}}.merge(results ||= {})
+              accessor = results[component]
+            end
           end
         end
-        last_value[last_value.keys.first] = hash[key]
-        result.merge!(subhash)
       end
-      result
+
+      results
     end
   end
 end
