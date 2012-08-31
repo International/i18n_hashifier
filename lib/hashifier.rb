@@ -7,7 +7,7 @@ module Hashifier
   # =>
   # {"de" => {"active_admin" => {"any" => "Some value"}}}
   class StringKeyHashExporter
-    def export(hash,separator=".")
+    def export(hash,keys_as_symbols=false,separator=".")
       results = {}
       keys = hash.keys
       keys.each do |key|
@@ -15,16 +15,17 @@ module Hashifier
         components = key.split(separator)
         accessor = nil
         components.each_with_index do |component,idx|
+          component_representation = keys_as_symbols ? component.to_sym : component
           is_last = idx == components.size - 1
           if is_last
-            accessor[component] = hash[key]
+            accessor[component_representation] = hash[key]
           else
             if accessor
-              accessor[component] ||= {}
-              accessor = accessor[component]
+              accessor[component_representation] ||= {}
+              accessor = accessor[component_representation]
             else
-              results = {component => {}}.merge(results ||= {})
-              accessor = results[component]
+              results = {component_representation => {}}.merge(results ||= {})
+              accessor = results[component_representation]
             end
           end
         end
