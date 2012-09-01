@@ -1,7 +1,3 @@
-# Hashifier
-
-TODO: Write a gem description
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,12 +14,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This it a simple hash conversion gem. Say you have a hash like the following:
 
-## Contributing
+    h = {"de.active_admin.any" => 20,"en.active_record.whatever.something" => 40}
+	
+After converting it, via:
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+	Hashifier::StringKeyHashExporter.new.export(h)
+	
+You would get:
+
+    {
+       "de" => {"active_admin" => {"any" => 20}},
+       "en" => {"active_record" => {"whatever" => {"something" => 40}}}
+    } 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
