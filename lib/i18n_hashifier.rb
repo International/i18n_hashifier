@@ -1,11 +1,6 @@
-require "hashifier/version"
+require "i18n_hashifier/version"
 
-module Hashifier
-  # A utility class for converting I18n keyed strings to appropriate hashes
-
-  # {"de.active_admin.any" => "Some value", "en.active_record.whatever" => 20}
-  # =>
-  # {"de" => {"active_admin" => {"any" => "Some value"}}}
+module I18nHashifier
   class StringKeyHashExporter
     def export(hash,keys_as_symbols=false,separator=".")
       results = {}

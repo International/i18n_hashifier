@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'hashifier' # and any other gems you need
+require 'i18n_hashifier' # and any other gems you need
 require "pry"
 
 RSpec.configure do |config|
